@@ -1,21 +1,23 @@
-import { Controller, Param, Get } from 'routing-controllers';
+import { Controller, Param, Get, UseBefore } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
-import { User } from '@interfaces/users.interface';
+
 import PokemonService from '@/services/pokemon.service';
+import Auth0Middleware from '@/middlewares/auth0.middleware';
 
 @Controller('/pokemon')
+@UseBefore(Auth0Middleware)
 export class PokemonController {
-  public pokemonService = new PokemonService();
+  private pokemonService = new PokemonService();
 
   @Get('/random')
   @OpenAPI({ summary: 'Return a random pokemon' })
   async getRandomPokemon() {
-    // TODO: implement
+    return this.pokemonService.getRandomPokemon();
   }
 
   @Get('/specified/:id')
   @OpenAPI({ summary: 'Return a specified pokemon by Id' })
-  async getUserById(@Param('id') userId: number) {
-    // TODO: implement
+  async getPokemonById(@Param('id') pokemonId: number) {
+    return this.pokemonService.getPokemonById(pokemonId);
   }
 }

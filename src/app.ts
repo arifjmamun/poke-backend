@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import config from 'config';
 import express from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 import hpp from 'hpp';
 import morgan from 'morgan';
 import { useExpressServer, getMetadataArgsStorage } from 'routing-controllers';
@@ -21,7 +22,7 @@ class App {
 
   constructor(Controllers: Function[]) {
     this.app = express();
-    this.port = process.env.PORT || 3000;
+    this.port = process.env.SERVER_PORT || 3000;
     this.env = process.env.NODE_ENV || 'development';
 
     this.initializeMiddlewares();
@@ -47,6 +48,7 @@ class App {
     this.app.use(morgan(config.get('log.format'), { stream }));
     this.app.use(hpp());
     this.app.use(helmet());
+    this.app.use(cors({ origin: [process.env.CLIENT_ORIGIN_URL] }));
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
@@ -55,10 +57,6 @@ class App {
 
   private initializeRoutes(controllers: Function[]) {
     useExpressServer(this.app, {
-      cors: {
-        origin: config.get('cors.origin'),
-        credentials: config.get('cors.credentials'),
-      },
       controllers: controllers,
       defaultErrorHandler: false,
     });
