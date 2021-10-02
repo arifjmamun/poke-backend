@@ -79,9 +79,10 @@ class App {
       components: {
         schemas,
         securitySchemes: {
-          basicAuth: {
-            scheme: 'basic',
-            type: 'http',
+          apiKeyHeader: {
+            type: 'apiKey',
+            in: 'header',
+            name: 'Authorization'
           },
         },
       },
