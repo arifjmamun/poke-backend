@@ -74,23 +74,27 @@ class App {
       controllers: controllers,
     };
 
+    const securityRequirement: any = {
+      bearerAuth: [],
+    };
+
     const storage = getMetadataArgsStorage();
     const spec = routingControllersToSpec(storage, routingControllersOptions, {
       components: {
         schemas,
         securitySchemes: {
-          apiKeyHeader: {
-            type: 'apiKey',
-            in: 'header',
-            name: 'Authorization'
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer'
           },
         },
       },
       info: {
-        description: 'Generated with `routing-controllers-openapi`',
-        title: 'A sample API',
+        description: 'Pokemon API protected by Auth0',
+        title: 'Pokemon API',
         version: '1.0.0',
       },
+      security: [securityRequirement]
     });
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
