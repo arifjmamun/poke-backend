@@ -19,7 +19,7 @@ npm run dev
 
 ## Getting started
 
-To explore the APIs, navigate to the following URL: [API Docs](http://localhost:6060/api-docs)
+To explore the APIs, navigate to the following URL: [API Docs](http://localhost:6060/api-docs) and it is deployed to [Heroku](https://poke-backend-api.herokuapp.com/api-docs)
 
 ## Tools and stack
 The backend API utilizes the followings:
@@ -27,3 +27,4 @@ The backend API utilizes the followings:
 - Used [typescript-express-starter](https://www.npmjs.com/package/typescript-express-starter) package to scaffold the basic version of this project
 - During scaffold selected [routing-controllers](https://www.npmjs.com/package/routing-controllers) template to have nice and clean class based routing with decorator support
 - Also used [routing-controllers-openapi](https://www.npmjs.com/package/routing-controllers-openapi) to have Swagger API docs support
+- To implement CI/CD used Heroku
